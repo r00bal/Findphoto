@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { PhotosContext } from '../context/PhotosContext';
 import { Modal } from '../components';
 
-export default function Gallery() {
+export default function Photos() {
   const [isModalOpen, setModalOpen] = useState(false);
   const toggleModal = () => setModalOpen(!isModalOpen);
 

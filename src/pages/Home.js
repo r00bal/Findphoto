@@ -5,7 +5,7 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import styled from 'styled-components/macro';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import backgroundImage from '../assets/bg.jpg';
 import { Header } from '../components';
 import { PhotosContext } from '../context/PhotosContext';
@@ -48,7 +48,7 @@ const Input = styled.input`
   box-sizing: border-box;
   flex-grow: 1;
 `;
-const AutoComplete = styled.div``;
+
 const List = styled.ul`
   margin: 5px 0 0 0;
   list-style: none;
@@ -182,7 +182,6 @@ function Home() {
           </Form>
         </Container>
       </Wrapper>
-      <h1>{search}</h1>
     </>
   );
 }

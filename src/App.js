@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Gallery from './pages/Gallery';
+import Photos from './pages/Photos';
 import { PhotosContext } from './context/PhotosContext';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/search/:photo" component={Gallery} />
+          <Route path="/search/:photo" component={Photos} />
         </Switch>
       </Router>
     </PhotosContext.Provider>
