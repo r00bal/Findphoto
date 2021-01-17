@@ -3,7 +3,11 @@ import react, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ImageListWrapper, Img, ImageCardWrapper } from './styles/ImageList';
 
-const ImageCard = ({ url, alt, openModal }) => {
+export default function ImageList({ children, ...restProps }) {
+  return <ImageListWrapper {...restProps}>{children}</ImageListWrapper>;
+}
+
+ImageList.Card = function ImageCard({ url, alt, ...restProps }) {
   const [state, setState] = useState(0);
   const imageRef = useRef(null);
 
@@ -18,38 +22,21 @@ const ImageCard = ({ url, alt, openModal }) => {
   });
 
   return (
-    <ImageCardWrapper style={{ gridRowEnd: `span ${state}` }} onClick={() => openModal(true)}>
+    <ImageCardWrapper style={{ gridRowEnd: `span ${state}` }} {...restProps}>
       <Img ref={imageRef} src={url} alt={alt} />
     </ImageCardWrapper>
   );
 };
 
-const ImageList = ({ images, openModal, setPictureId }) => {
-  const imgs =
-    images &&
-    images.map(({ id, urls, alt_description }) => (
-      <ImageCard
-        key={id}
-        url={urls.small}
-        alt={alt_description}
-        openModal={openModal}
-        onClick={() => setPictureId(id)}
-      />
-    ));
-
-  return <ImageListWrapper>{imgs}</ImageListWrapper>;
-};
-
-export default ImageList;
-
 ImageList.propTypes = {
+  children: PropTypes.object,
   images: PropTypes.array,
   setPictureId: PropTypes.func,
   openModal: PropTypes.func,
 };
 
-ImageCard.propTypes = {
-  openModal: PropTypes.func,
+ImageList.Card.propTypes = {
+  children: PropTypes.object,
   url: PropTypes.string,
   alt: PropTypes.string,
 };

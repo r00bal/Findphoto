@@ -3,6 +3,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams, Link as ReactRouterLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import axios from 'axios';
 import { PhotosContext } from '../context/PhotosContext';
 import { Modal, Search, ImageList, Card } from '../components';
 
@@ -55,24 +56,41 @@ export default function Photos() {
   const [pictureId, setPictureId] = useState(false);
   const [photoDetails, setPhotoDetails] = useState(false);
 
+  const fetchResults = async () => {
+    if (pictureId) {
+      try {
+        console.log(pictureId);
+        const res = await axios(
+          `https://api.unsplash.com/photos/${pictureId}?client_id=${process.env.REACT_APP_APIKEY}`
+        );
+        const { data } = res;
+        console.log(data);
+        setPhotoDetails(data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+  };
+
   useEffect(() => {
-    const clickedPhoto = photos && pictureId && photos.filter(({ id }) => id === pictureId)[0];
-    setPhotoDetails(clickedPhoto);
+    console.log(pictureId);
+    setModalOpen(true);
+    fetchResults();
   }, [pictureId]);
 
-  const toggleModal = () => setModalOpen(!isModalOpen);
+  // useEffect(() => {
+  //   const clickedPhoto = photos && pictureId && photos.filter(({ id }) => id === pictureId)[0];
+  //   setPhotoDetails(clickedPhoto);
+  // }, [pictureId]);
 
+  const handleClose = () => {
+    setModalOpen(null);
+    setPictureId(null);
+    setPhotoDetails(null);
+  };
   const { photo } = useParams();
 
   const title = photo.charAt(0).toUpperCase() + photo.slice(1);
-  const images =
-    photos &&
-    photos.map(({ urls, alt_description, id, tags }) => ({
-      urls,
-      alt_description,
-      id,
-      tags,
-    }));
 
   const categories =
     photos &&
@@ -92,22 +110,26 @@ export default function Photos() {
             </LinkButton>
           ))}
       </CategoriesWrapper>
-      <ImageList images={images} openModal={setModalOpen} setPictureId={setPictureId} />
-      <Modal isOpen={isModalOpen}>
-        {/* {photoDetails && (
+      <ImageList>
+        {photos &&
+          photos.map(({ alt_description, urls, id }) => (
+            <ImageList.Card key={id} alt={alt_description} url={urls.small} onClick={() => setPictureId(id)} />
+          ))}
+      </ImageList>
+      <Modal isOpen={isModalOpen && photoDetails}>
+        {isModalOpen && photoDetails && (
           <Card>
             <Card.Header>
               <Card.Wrapper>
-                <Card.Title>{photoDetails.user.name}</Card.Title>
-                <Card.Text>{photoDetails.user.location}</Card.Text>
+                <Card.Title>{photoDetails.user.name && photoDetails.user.name}</Card.Title>
+                <Card.Text>@{photoDetails.user.instagram_username && photoDetails.user.instagram_username}</Card.Text>
               </Card.Wrapper>
+              <Card.Button onClick={handleClose}>CLOSE</Card.Button>
             </Card.Header>
-            <Card.Button onClick={() => setModalOpen(false)}>CLOSE</Card.Button>
-            <Card.Img src={photoDetails.urls.regular} alt={photoDetails.alt_description} />
-            <Card.Footer>{photoDetails.user.name}</Card.Footer>
+            <Card.Image src={photoDetails.urls.regular} alt={photoDetails.alt_description} />
+            <Card.Footer>{photoDetails.location.name}</Card.Footer>
           </Card>
-          // <>{console.log(photoDetails)}</>
-        )} */}
+        )}
       </Modal>
     </Wrapper>
   );

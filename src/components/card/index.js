@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Container, Header, HeaderWrapper, Title, Text, Footer, Button } from './styles/Card';
+import { Container, Header, HeaderWrapper, Title, Text, Footer, Button, Img } from './styles/Card';
 
 export default function Card({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
+
+Card.Image = function ImageCard({ children, ...restProps }) {
+  return <Img {...restProps}>{children}</Img>;
+};
 
 Card.Title = function TitleCard({ children, ...restProps }) {
   return <Title {...restProps}>{children}</Title>;
@@ -13,7 +17,7 @@ Card.Header = function HeaderCard({ children, ...restProps }) {
   return <Header {...restProps}>{children}</Header>;
 };
 
-Card.HeaderWrapper = function HeaderWrapperCard({ children, ...restProps }) {
+Card.Wrapper = function HeaderWrapperCard({ children, ...restProps }) {
   return <HeaderWrapper {...restProps}>{children}</HeaderWrapper>;
 };
 

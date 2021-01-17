@@ -27,7 +27,7 @@ function Modal({ isOpen, children }) {
     isOpen &&
     createPortal(
       <Container>{children}</Container>,
-      // target container
+
       el
     )
   );
