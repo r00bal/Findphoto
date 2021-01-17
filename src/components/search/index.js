@@ -1,15 +1,23 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { PhotosContext } from '../../context/PhotosContext';
-import { Form, Input, List, Option } from './styles/Search';
+import { Form, Input, List, Option, InputWrapper, Box } from './styles/Search';
 
-function Search({ placeholder = 'Search free high resolution photos' }) {
+function Search({
+  placeholder = 'Search free high resolution photos',
+  secondary = null,
+  small = null,
+  bg,
+  ...restProps
+}) {
   const history = useHistory();
-  const [photos, setPhotos] = useContext(PhotosContext);
-  const [search, setSearch] = useState('');
+  const { photos, setPhotos, search, setSearch } = useContext(PhotosContext);
+  // const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState('');
   const [query, setQuery] = useState([]);
   const [activeOption, setActiveOption] = useState(-1);
@@ -38,7 +46,9 @@ function Search({ placeholder = 'Search free high resolution photos' }) {
         setSuggestions('No results found');
       } else {
         setPhotos(results);
-        history.push(`search/${search}`);
+        history.push(`/search/${search}`);
+
+        setSuggestions('');
       }
     } catch (error) {
       console.log('error', error);
@@ -46,7 +56,7 @@ function Search({ placeholder = 'Search free high resolution photos' }) {
   };
 
   useEffect(() => {
-    if (query.length >= 3) {
+    if (query.length >= 3 && query !== search) {
       fetchSuggestions();
     } else {
       setSuggestions('');
@@ -56,6 +66,7 @@ function Search({ placeholder = 'Search free high resolution photos' }) {
   useEffect(() => {
     if (query.length > 0 && search.length > 0) {
       fetchResults();
+      setQuery(search);
     }
   }, [search]);
 
@@ -69,14 +80,19 @@ function Search({ placeholder = 'Search free high resolution photos' }) {
   const empty = suggestions.length === 0;
 
   return (
-    <Form>
-      <Input
-        onKeyDown={handleKeyDown}
-        onChange={(e) => setQuery(e.target.value)}
-        value={query}
-        type="text"
-        placeholder={placeholder}
-      />
+    <Form small={small} {...restProps}>
+      <InputWrapper secondary={secondary} bg={bg}>
+        <Box />
+        <Input
+          small={small}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          type="text"
+          placeholder={placeholder}
+        />
+      </InputWrapper>
+
       {suggestions instanceof Array && suggestions.length > 0 ? (
         <List empty={empty} role="listbox">
           {suggestions.map((suggestion, index) => (
@@ -99,5 +115,12 @@ function Search({ placeholder = 'Search free high resolution photos' }) {
     </Form>
   );
 }
+
+Search.propTypes = {
+  placeholder: PropTypes.string,
+  bg: PropTypes.string,
+  secondary: PropTypes.bool,
+  small: PropTypes.bool,
+};
 
 export default Search;

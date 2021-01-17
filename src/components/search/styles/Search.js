@@ -6,18 +6,53 @@ export const Form = styled.form`
   position: relative;
   background: none;
   color: #111;
+  width: 100%;
+  ${({ small }) => (small ? `max-width:800px;` : null)}
 `;
+
+export const Box = styled.div`
+  width: 30px;
+  height: 100%;
+`;
+
+export const InputWrapper = styled.div`
+  border: 1px solid transparent;
+  background-color: ${({ bg }) => bg || `#f5f5f5`};
+  font-size: 16px;
+  display: flex;
+  padding-right: 30px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  flex-grow: 1;
+  &:focus-within {
+    background-color: #f5f5f5;
+    border: 1px solid #c0c0c0;
+  }
+
+  ${({ secondary }) =>
+    secondary
+      ? `border-radius: 24px;
+&:hover {
+  border: 1px solid #c0c0c0;
+}
+`
+      : null};
+`;
+
 export const Input = styled.input`
   border: none;
-  border-radius: 4px;
-  background-color: #f5f5f5;
-  height: 54px;
-  padding-left: 15px;
+  height: ${({ small }) => (small ? `40px` : `53px`)};
+  padding: 0 0 0 10px;
+  width: 100%;
+  background-color: transparent;
   font-size: 16px;
   display: flex;
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
-  flex-grow: 1;
+  &:focus {
+    outline: none;
+    border: none;
+  }
 `;
 
 export const List = styled.ul`
