@@ -12,31 +12,36 @@ ImageList.Card = function ImageCard({ url, alt, ...restProps }) {
   const imageRef = useRef(null);
 
   const setSpans = () => {
-    const height = imageRef.current.clientHeight + 30;
-    const spans = Math.ceil(height / 10);
+    const height = imageRef.current.clientHeight;
+
+    const spans = Math.ceil(height / 25);
+    console.log(height, spans);
     setState(spans);
   };
 
-  useEffect(() => {
-    imageRef.current.addEventListener('load', setSpans);
-  });
-
+  // useEffect(() => {
+  //   imageRef.current.addEventListener('load', setSpans);
+  //   return () => {
+  //     imageRef.current.removeEventListener('load', setSpans);
+  //   };
+  // });
+  //  style={{ gridRowEnd: `span ${state}`}}
   return (
-    <ImageCardWrapper style={{ gridRowEnd: `span ${state}` }} {...restProps}>
-      <Img ref={imageRef} src={url} alt={alt} />
+    <ImageCardWrapper {...restProps}>
+      <Img ref={imageRef} src={url} alt={alt} width="50%" height="50%" />
     </ImageCardWrapper>
   );
 };
 
 ImageList.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
   images: PropTypes.array,
   setPictureId: PropTypes.func,
   openModal: PropTypes.func,
 };
 
 ImageList.Card.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
   url: PropTypes.string,
   alt: PropTypes.string,
 };

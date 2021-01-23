@@ -7,7 +7,7 @@ export const Form = styled.form`
   background: none;
   color: #111;
   width: 100%;
-  ${({ small }) => (small ? `max-width:800px;` : null)}
+  ${({ secondary }) => (secondary ? `max-width:1000px;` : null)}
 `;
 
 export const Box = styled.div`
@@ -23,12 +23,12 @@ export const InputWrapper = styled.div`
   padding-right: 30px;
   box-sizing: border-box;
   border-radius: 4px;
+  width: 100%;
   flex-grow: 1;
   &:focus-within {
-    background-color: #f5f5f5;
+    background-color: ${({ bg }) => bg || `#f5f5f5`};
     border: 1px solid #c0c0c0;
   }
-
   ${({ secondary }) =>
     secondary
       ? `border-radius: 24px;
@@ -41,7 +41,7 @@ export const InputWrapper = styled.div`
 
 export const Input = styled.input`
   border: none;
-  height: ${({ small }) => (small ? `40px` : `53px`)};
+  height: ${({ secondary }) => (secondary ? `40px` : `53px`)};
   padding: 0 0 0 10px;
   width: 100%;
   background-color: transparent;
@@ -50,6 +50,7 @@ export const Input = styled.input`
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
   &:focus {
+    background-color: ${({ bg }) => bg || `#f5f5f5`};
     outline: none;
     border: none;
   }

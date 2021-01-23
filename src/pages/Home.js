@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import backgroundImage from '../assets/bg.jpg';
-import { Header, Search } from '../components';
+import { Header, Autocomplete } from '../components';
 
 const Wrapper = styled.div`
   ${({ backgroundImage }) => (backgroundImage ? `background-image: url(${backgroundImage});` : null)}
@@ -22,6 +24,13 @@ const Container = styled.section`
 `;
 
 function Home() {
+  const history = useHistory();
+  const [search, setSearch] = useState(null);
+  useEffect(() => {
+    if (search) {
+      history.push(`/photos/${search}`);
+    }
+  }, [search]);
   return (
     <>
       <Wrapper backgroundImage={backgroundImage}>
@@ -34,7 +43,7 @@ function Home() {
               Powered by creators everywhere.
             </Header.Text>
           </Header>
-          <Search />
+          <Autocomplete onSubmit={setSearch} />
         </Container>
       </Wrapper>
     </>
