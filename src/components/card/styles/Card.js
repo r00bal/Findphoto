@@ -47,7 +47,7 @@ export const Text = styled.p`
 `;
 export const Footer = styled.footer``;
 export const Img = styled.img`
-  max-height: 90%;
+  max-height: 600px;
   max-width: 80%;
   object-fit: contain;
 `;

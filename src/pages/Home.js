@@ -28,7 +28,9 @@ function Home() {
   const [search, setSearch] = useState(null);
   useEffect(() => {
     if (search) {
-      history.push(`/photos/${search}`);
+      console.log(history);
+      history.push(`/search/${search}`);
+      console.log(history);
     }
   }, [search]);
   return (

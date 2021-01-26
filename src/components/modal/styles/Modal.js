@@ -11,4 +11,5 @@ export const Container = styled.div`
   width: 100vw;
   padding: 100px;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
 `;

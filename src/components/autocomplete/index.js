@@ -18,8 +18,8 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
   const [suggestions, setSuggestions] = useState('');
 
   useEffect(() => {
-    console.log(location.pathname.includes('/photos/'));
-    if (location.pathname.includes('/photos/')) {
+    console.log(location.pathname.includes('/search/'));
+    if (location.pathname.includes('/search/')) {
       setQuery(photo);
     }
   }, []);

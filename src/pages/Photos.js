@@ -1,12 +1,14 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
 /* eslint-disable react/button-has-type */
 import React, { useState, useContext, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation, Route, Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import { useFetch } from '../hooks';
 import { Modal, ImageList, Card, Autocomplete } from '../components';
 import { BASE_API_URL_UNPLASH_PHOTOS } from '../constant';
+import { ModalContainer } from '../containers/ModalContainer';
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -55,18 +57,19 @@ const LinkButton = styled.button`
 
 export default function Photos() {
   const { photo } = useParams();
+  const { url } = useRouteMatch();
+  const history = useHistory();
+  const location = useLocation();
   const [{ isLoading, data, isError }, setUrl] = useFetch();
   const [search, setSearch] = useState(null);
-  const history = useHistory();
-  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const url = `${BASE_API_URL_UNPLASH_PHOTOS}?query=${photo}&per_page=10&client_id=${process.env.REACT_APP_APIKEY}`;
+    const url = `${BASE_API_URL_UNPLASH_PHOTOS}?query=${photo}&per_page=36&client_id=${process.env.REACT_APP_APIKEY}`;
     setUrl(url);
   });
   useEffect(() => {
     if (search) {
-      history.push(`/photos/${search}`);
+      history.push(`/search/${search}`);
     }
   }, [search]);
 
@@ -77,11 +80,33 @@ export default function Photos() {
     photos
       .map(({ tags, id }) => tags && tags.map(({ title }) => title))
       .flat(1)
-      .filter((v, i, a) => a.indexOf(v) === i);
+      .filter((categgory, index, array) => array.indexOf(categgory) === index);
+
+  const PhotosColumn = (num) => (
+    <div>
+      {photos &&
+        photos.map(({ alt_description, urls, id }, index) => {
+          if (index % 3 === num) {
+            return (
+              <Link
+                key={id}
+                to={{
+                  pathname: `/search/${photo}/${id}`,
+                  state: { modal: true },
+                }}
+              >
+                <ImageList.Card alt={alt_description} url={urls.small} />
+              </Link>
+            );
+          }
+        })}
+    </div>
+  );
 
   return (
     <>
       <Autocomplete
+        focusable={false}
         secondary
         bg="#FFE4DC"
         css={`
@@ -112,34 +137,37 @@ export default function Photos() {
                 </CategoriesWrapper>
 
                 <ImageList>
-                  {photos &&
-                    photos.map(({ alt_description, urls, id }, index) => {
-                      console.log(index % 3);
-                      return (
-                        <ImageList.Card
-                          key={id}
-                          alt={alt_description}
-                          url={urls.small}
-                          onClick={() => console.log(id)}
-                        />
-                      );
-                    })}
+                  {PhotosColumn(0)}
+                  {PhotosColumn(1)}
+                  {PhotosColumn(2)}
                 </ImageList>
-                {/* <Modal isOpen={isModalOpen && photoDetails}>
-              {isModalOpen && photoDetails && (
-                <Card>
-                  <Card.Header>
-                    <Card.Wrapper>
-                      <Card.Title>{photoDetails.user.name && photoDetails.user.name}</Card.Title>
-                      <Card.Text>@{photoDetails.user.instagram_username && photoDetails.user.instagram_username}</Card.Text>
-                    </Card.Wrapper>
-                    <Card.Button onClick={handleClose}>CLOSE</Card.Button>
-                  </Card.Header>
-                  <Card.Image src={photoDetails.urls.regular} alt={photoDetails.alt_description} />
-                  <Card.Footer>{photoDetails.location.name}</Card.Footer>
-                </Card>
-              )}
-            </Modal> */}
+                {location.state && location.state.modal ? (
+                  <Route path={`${url}/:id`}>
+                    <ModalContainer isOpen={location.state.modal} />
+                  </Route>
+                ) : // <Route path={`${url}/:id`}>
+                //   <Modal isOpen={location.state.modal}>
+                //     <Card>
+                //       <Card.Header>
+                //         <Card.Wrapper>
+                //           <Card.Title>name</Card.Title>
+                //           <Card.Text>@instagram_username</Card.Text>
+                //         </Card.Wrapper>
+                //         <Card.Button
+                //           onClick={(e) => {
+                //             e.stopPropagation();
+                //             history.goBack();
+                //           }}
+                //         >
+                //           CLOSE
+                //         </Card.Button>
+                //       </Card.Header>
+                //       <Card.Image src="" alt="" />
+                //       <Card.Footer>location</Card.Footer>
+                //     </Card>
+                //   </Modal>
+                // </Route>
+                null}
               </>
             );
           }
@@ -164,7 +192,7 @@ export default function Photos() {
 // };
 
 // useEffect(() => {
-//   setModalOpen(true);
+//   setModal(true);
 //   fetchResults();
 // }, [pictureId]);
 
@@ -175,7 +203,7 @@ export default function Photos() {
 // }, [search]);
 
 // const handleClose = () => {
-//   setModalOpen(null);
+//   setModal(null);
 //   setPictureId(null);
 //   setPhotoDetails(null);
 // };

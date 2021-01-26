@@ -23,13 +23,10 @@ function Modal({ isOpen, children }) {
     };
   }, [isOpen]);
 
-  return (
-    isOpen &&
-    createPortal(
-      <Container>{children}</Container>,
+  return createPortal(
+    <Container>{children}</Container>,
 
-      el
-    )
+    el
   );
 }
 

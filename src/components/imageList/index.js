@@ -8,27 +8,9 @@ export default function ImageList({ children, ...restProps }) {
 }
 
 ImageList.Card = function ImageCard({ url, alt, ...restProps }) {
-  const [state, setState] = useState(0);
-  const imageRef = useRef(null);
-
-  const setSpans = () => {
-    const height = imageRef.current.clientHeight;
-
-    const spans = Math.ceil(height / 25);
-    console.log(height, spans);
-    setState(spans);
-  };
-
-  // useEffect(() => {
-  //   imageRef.current.addEventListener('load', setSpans);
-  //   return () => {
-  //     imageRef.current.removeEventListener('load', setSpans);
-  //   };
-  // });
-  //  style={{ gridRowEnd: `span ${state}`}}
   return (
     <ImageCardWrapper {...restProps}>
-      <Img ref={imageRef} src={url} alt={alt} width="50%" height="50%" />
+      <Img src={url} alt={alt} />
     </ImageCardWrapper>
   );
 };
