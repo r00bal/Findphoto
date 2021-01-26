@@ -60,6 +60,7 @@ export default function Photos() {
   const { url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [page, setPage] = useState(1);
   const [{ isLoading, data, isError }, setUrl] = useFetch();
   const [search, setSearch] = useState(null);
 
@@ -145,29 +146,7 @@ export default function Photos() {
                   <Route path={`${url}/:id`}>
                     <ModalContainer isOpen={location.state.modal} />
                   </Route>
-                ) : // <Route path={`${url}/:id`}>
-                //   <Modal isOpen={location.state.modal}>
-                //     <Card>
-                //       <Card.Header>
-                //         <Card.Wrapper>
-                //           <Card.Title>name</Card.Title>
-                //           <Card.Text>@instagram_username</Card.Text>
-                //         </Card.Wrapper>
-                //         <Card.Button
-                //           onClick={(e) => {
-                //             e.stopPropagation();
-                //             history.goBack();
-                //           }}
-                //         >
-                //           CLOSE
-                //         </Card.Button>
-                //       </Card.Header>
-                //       <Card.Image src="" alt="" />
-                //       <Card.Footer>location</Card.Footer>
-                //     </Card>
-                //   </Modal>
-                // </Route>
-                null}
+                ) : null}
               </>
             );
           }
@@ -176,34 +155,3 @@ export default function Photos() {
     </>
   );
 }
-
-// const fetchResults = async () => {
-//   if (pictureId) {
-//     try {
-//       const res = await axios(
-//         `https://api.unsplash.com/photos/${pictureId}?client_id=${process.env.REACT_APP_APIKEY}`
-//       );
-//       const { data } = res;
-//       setPhotoDetails(data);
-//     } catch (error) {
-//       console.log('error', error);
-//     }
-//   }
-// };
-
-// useEffect(() => {
-//   setModal(true);
-//   fetchResults();
-// }, [pictureId]);
-
-// useEffect(() => {
-//   if (search) {
-//     history.push(`/search/${search}`);
-//   }
-// }, [search]);
-
-// const handleClose = () => {
-//   setModal(null);
-//   setPictureId(null);
-//   setPhotoDetails(null);
-// };
