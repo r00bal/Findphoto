@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 
-export default function useFetch(initURL = null) {
+export default function useFetch(initURL = null, infinite = false) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState(initURL);
   const [data, setData] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setIsError(false);
@@ -13,7 +15,6 @@ export default function useFetch(initURL = null) {
     const fetchData = async () => {
       try {
         const response = await axios(url);
-        console.log(response);
         if (response.status === 200) {
           setData(response.data);
         }

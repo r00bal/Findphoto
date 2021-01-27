@@ -13,4 +13,5 @@ export const ImageCardWrapper = styled.div`
 export const Img = styled.img`
   /* min-width: 300px; */
   width: 100%;
+  height: 100%;
 `;
