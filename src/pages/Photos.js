@@ -10,25 +10,36 @@ import { useFetch } from '../hooks';
 import { Modal, ImageList, Card, Autocomplete } from '../components';
 import { ArrangeEqualHeightColumns, GetCategories } from '../utils';
 import { BASE_API_URL_UNPLASH_PHOTOS } from '../constant';
-import { ModalContainer } from '../containers/ModalContainer';
+import { ModalContainer, TagsContainer } from '../containers';
 
 const Wrapper = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-
   max-width: 1320px;
   margin: 0 auto;
-  height: 100vh;
-  overflow: auto;
+  margin-top: 100px;
+  /* height: calc(100vh - 100px);
+  overflow: auto; */
 `;
 
-const CategoriesWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+const CategoriesContainer = styled.div`
   margin-bottom: 35px;
+  width: 100%;
+  height: 150px;
+  max-width: 1300px;
+`;
+
+const CategoriesInnerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const CategoriesOuterWrapper = styled.div`
+  display: flex;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -38,8 +49,6 @@ const Title = styled.h1`
 `;
 
 const LinkButton = styled.button`
-  padding-left: 4px;
-  padding-right: 4px;
   width: 145px;
   overflow: hidden;
   height: 45px;
@@ -49,7 +58,6 @@ const LinkButton = styled.button`
   font-size: 14px;
   text-align: center;
   border-radius: 5px;
-  margin: 5px 5px 15px 0;
   border: 1px solid #d1d1d1;
   color: inherit;
   cursor: pointer;
@@ -61,6 +69,22 @@ const LinkButton = styled.button`
 `;
 const Center = styled.p`
   text-align: center;
+`;
+
+const AutocompleteWrapper = styled.div`
+  border-bottom: 1px solid #d1d1d1;
+  height: 100px;
+  width: 100%;
+  padding: 1rem 2rem 3rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(250, 250, 250, 0.9);
+`;
+
+const Container = styled.div`
+  overflow: auto;
+  height: 100vh;
 `;
 
 export default function Photos() {
@@ -88,7 +112,6 @@ export default function Photos() {
     if (page > 1 && data.results.length > 0) {
       setPhotos((prev) => [...prev, ...data.results]);
     }
-    console.log(photos);
   }, [data]);
 
   // reset states in case of Input submission
@@ -112,28 +135,15 @@ export default function Photos() {
   };
 
   return (
-    <>
-      <Autocomplete
-        focusable={false}
-        secondary
-        bg="#FFE4DC"
-        css={`
-          margin: 0 auto;
-          margin-top: 50px;
-        `}
-        onSubmit={setSearch}
-      />
-      <Wrapper onScroll={handleScroll}>
+    <Container onScroll={handleScroll}>
+      <AutocompleteWrapper>
+        <Autocomplete focusable={false} secondary bg="#d1d1d1" onSubmit={setSearch} />
+      </AutocompleteWrapper>
+
+      <Wrapper>
         <Title>{title}</Title>
 
-        <CategoriesWrapper>
-          {categories &&
-            categories.map((cat) => (
-              <LinkButton key={cat} onClick={(e) => console.log(e)}>
-                {cat}
-              </LinkButton>
-            ))}
-        </CategoriesWrapper>
+        {categories && <TagsContainer categories={categories} />}
         {photos.length > 0 && photos && (
           <ImageList>
             {ArrangeEqualHeightColumns(photos, page).map((column, index) => (
@@ -163,6 +173,6 @@ export default function Photos() {
           </Route>
         ) : null}
       </Wrapper>
-    </>
+    </Container>
   );
 }

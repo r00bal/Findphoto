@@ -17,7 +17,7 @@ export const Box = styled.div`
 
 export const InputWrapper = styled.div`
   border: 1px solid transparent;
-  background-color: ${({ bg }) => bg || `#f5f5f5`};
+  background-color: ${({ bg }) => bg || `#EFEFEF`};
   font-size: 16px;
   display: flex;
   padding-right: 30px;
@@ -26,7 +26,7 @@ export const InputWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
   &:focus-within {
-    background-color: ${({ bg }) => bg || `#f5f5f5`};
+    background-color: ${({ bg }) => bg || `#EFEFEF`};
     border: 1px solid #c0c0c0;
   }
   ${({ secondary }) =>
@@ -50,7 +50,7 @@ export const Input = styled.input`
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
   &:focus {
-    background-color: ${({ bg }) => bg || `#f5f5f5`};
+    background-color: ${({ bg }) => bg || `#EFEFEF`};
     outline: none;
     border: none;
   }
@@ -63,7 +63,7 @@ export const List = styled.ul`
   top: 100%;
   padding: 5px 0px 5px 0px;
   border-radius: 4px;
-  background-color: #f5f5f5;
+  background-color: #efefef;
   display: flex;
   flex-direction: column;
   transition: all 0.1s ease-in-out;

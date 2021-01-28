@@ -5,9 +5,8 @@ import { useParams, useHistory, Route, useRouteMatch } from 'react-router-dom';
 import { useFetch } from '../hooks';
 import { Modal, Card } from '../components';
 import { BASE_API_URL_UNPLASH_PHOTO } from '../constant';
-// `https://api.unsplash.com/photos/${pictureId}?client_id=${process.env.REACT_APP_APIKEY}`
 
-export function ModalContainer({ isOpen }) {
+export default function ModalContainer({ isOpen }) {
   const { id } = useParams();
   const { url } = useRouteMatch();
   const history = useHistory();

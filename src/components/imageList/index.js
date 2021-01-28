@@ -20,6 +20,7 @@ ImageList.propTypes = {
   images: PropTypes.array,
   setPictureId: PropTypes.func,
   openModal: PropTypes.func,
+  infinteScroll: PropTypes.bool,
 };
 
 ImageList.Card.propTypes = {

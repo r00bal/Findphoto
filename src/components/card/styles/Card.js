@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 export const Container = styled.div`
   display: flex;
   width: 100%;
+  max-width: 1000px;
   height: 100%;
   background-color: #fff;
   padding: 20px;
@@ -47,7 +48,7 @@ export const Text = styled.p`
 `;
 export const Footer = styled.footer``;
 export const Img = styled.img`
-  max-height: 600px;
+  max-height: 450px;
   max-width: 80%;
   object-fit: contain;
 `;
