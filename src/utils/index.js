@@ -26,6 +26,6 @@ export const ArrangeEqualHeightColumns = (images) => {
 
 export const GetCategories = (photos) =>
   photos
-    .map(({ tags, id }) => tags && tags.map(({ title }) => title))
+    .map(({ tags }) => tags && tags.map(({ title }) => title))
     .flat(1)
     .filter((categgory, index, array) => array.indexOf(categgory) === index);

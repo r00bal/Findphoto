@@ -82,7 +82,6 @@ const LinkButton = styled(Link)`
 `;
 
 export default function TagsContainer({ categories }) {
-  const { url } = useRouteMatch();
   const [blur, setBlur] = useState({ before: false, after: true });
 
   const handleScrool = (event) => {

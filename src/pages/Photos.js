@@ -2,12 +2,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
 /* eslint-disable react/button-has-type */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory, useLocation, Route, Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import axios from 'axios';
 import { useFetch } from '../hooks';
-import { Modal, ImageList, Card, Autocomplete } from '../components';
+import { ImageList, Autocomplete } from '../components';
 import { ArrangeEqualHeightColumns, GetCategories } from '../utils';
 import { BASE_API_URL_UNPLASH_PHOTOS, PER_PAGE } from '../constant';
 import { ModalContainer, TagsContainer } from '../containers';
@@ -24,49 +23,12 @@ const Wrapper = styled.div`
   overflow: auto; */
 `;
 
-const CategoriesContainer = styled.div`
-  margin-bottom: 35px;
-  width: 100%;
-  height: 150px;
-  max-width: 1300px;
-`;
-
-const CategoriesInnerWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const CategoriesOuterWrapper = styled.div`
-  display: flex;
-  position: relative;
-`;
-
 const Title = styled.h1`
   display: flex;
   font-size: 54px;
   margin: 15px 0 35px 0;
 `;
 
-const LinkButton = styled.button`
-  width: 145px;
-  overflow: hidden;
-  height: 45px;
-  text-align: center;
-  text-transform: capitalize;
-  padding: 13px;
-  font-size: 14px;
-  text-align: center;
-  border-radius: 5px;
-  border: 1px solid #d1d1d1;
-  color: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  &:focus {
-    outline: none;
-    border: 1px solid black;
-  }
-`;
 const Center = styled.p`
   text-align: center;
 `;

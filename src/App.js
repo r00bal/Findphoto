@@ -2,10 +2,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
-import { Route, BrowserRouter as Router, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Photos from './pages/Photos';
-import { Modal } from './components';
 
 function App() {
   // const match = useRouteMatch();

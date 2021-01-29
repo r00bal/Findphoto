@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useLocation } from 'react-router-dom';
-import { set } from 'lodash';
+
 import { useFetch } from '../../hooks';
 import { BASE_API_URL_DATAMUSE } from '../../constant';
 import { Form, Input, List, Option, InputWrapper, Box } from './styles/Autocomplete';

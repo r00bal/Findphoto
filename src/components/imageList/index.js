@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import react, { useRef, useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import { ImageListWrapper, Img, ImageCardWrapper } from './styles/ImageList';
 

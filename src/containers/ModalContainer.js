@@ -1,21 +1,20 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable camelcase */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useHistory, Route, useRouteMatch } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useFetch } from '../hooks';
 import { Modal, Card } from '../components';
 import { BASE_API_URL_UNPLASH_PHOTO } from '../constant';
 
 export default function ModalContainer({ isOpen }) {
   const { id } = useParams();
-  const { url } = useRouteMatch();
   const history = useHistory();
-  const [{ isLoading, data, isError }, setUrl] = useFetch(
+  const [{ isLoading, data, isError }] = useFetch(
     `${BASE_API_URL_UNPLASH_PHOTO}/${id}?client_id=${process.env.REACT_APP_APIKEY}`
   );
 
-  const onModalClose = (e) => {
+  const onModalClose = () => {
     history.goBack();
   };
 
