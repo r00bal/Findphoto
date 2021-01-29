@@ -21,7 +21,6 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
   const [suggestions, setSuggestions] = useState('');
 
   useEffect(() => {
-    console.log(location.pathname.includes('/search/'));
     if (location.pathname.includes('/search/')) {
       setQuery(photo);
     }
@@ -81,7 +80,7 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
         handleFormSubmit();
       }
     }
-    console.log(e.keyCode);
+
     if (!isOpen && suggestions.length > 0 && active === -1 && e.keyCode === 40) {
       setIsOpen(true);
       setActive(0);
@@ -114,7 +113,6 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
   };
 
   const handleOptionHover = (e) => {
-    console.log(e.target.textContent);
     setActive(suggestions.indexOf(e.target.textContent));
   };
 
