@@ -17,7 +17,7 @@ export const Box = styled.div`
 
 export const InputWrapper = styled.div`
   border: 1px solid transparent;
-  background-color: ${({ bg }) => bg || `#EFEFEF`};
+  background-color: ${({ bg }) => bg || `#e0e0e0`};
   font-size: 16px;
   display: flex;
   padding-right: 30px;
@@ -26,7 +26,7 @@ export const InputWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
   &:focus-within {
-    background-color: ${({ bg }) => bg || `#EFEFEF`};
+    background-color: ${({ bg }) => bg || `#e0e0e0`};
     border: 1px solid #c0c0c0;
   }
   ${({ secondary }) =>
@@ -50,7 +50,7 @@ export const Input = styled.input`
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
   &:focus {
-    background-color: ${({ bg }) => bg || `#EFEFEF`};
+    background-color: ${({ bg }) => bg || `#e0e0e0`};
     outline: none;
     border: none;
   }
@@ -63,7 +63,7 @@ export const List = styled.ul`
   top: 100%;
   padding: 5px 0px 5px 0px;
   border-radius: 4px;
-  background-color: #efefef;
+  background-color: #eeeeee;
   display: flex;
   flex-direction: column;
   transition: all 0.1s ease-in-out;
@@ -72,12 +72,12 @@ export const List = styled.ul`
   flex-grow: 1;
   ${({ empty }) => (empty ? `display :none;` : null)}
   .active {
-    background-color: #f1e1f2;
+    background-color: #e0e0e0;
   }
 `;
 export const Option = styled.li`
   padding: 10px 15px 10px;
-  &:hover {
-    background-color: #f1e1f2;
-  }
+  /* &:hover {
+    background-color: #e0e0e0;
+  } */
 `;

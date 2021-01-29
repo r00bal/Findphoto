@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useFetch } from '../hooks';
 import { Modal, ImageList, Card, Autocomplete } from '../components';
 import { ArrangeEqualHeightColumns, GetCategories } from '../utils';
-import { BASE_API_URL_UNPLASH_PHOTOS } from '../constant';
+import { BASE_API_URL_UNPLASH_PHOTOS, PER_PAGE } from '../constant';
 import { ModalContainer, TagsContainer } from '../containers';
 
 const Wrapper = styled.div`
@@ -79,7 +79,8 @@ const AutocompleteWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(250, 250, 250, 0.9);
+  background-color: #ffffff;
+  z-index: 3;
 `;
 
 const Container = styled.div`
@@ -94,31 +95,47 @@ export default function Photos() {
   const location = useLocation();
   const [page, setPage] = useState(1);
   const [photos, setPhotos] = useState([]);
-  const [{ isLoading, data, isError }, setUrl] = useFetch();
+  const [{ isLoading, data, isError }, setUrl] = useFetch(null);
   const [search, setSearch] = useState(null);
 
-  // API Call
+  const resetSearch = () => {
+    setPhotos([]);
+    setPage(1);
+    setSearch(null);
+  };
+  // API Call on photo change
   useEffect(() => {
-    const url = `${BASE_API_URL_UNPLASH_PHOTOS}?query=${photo}&page=${page}&per_page=10&client_id=${process.env.REACT_APP_APIKEY}`;
+    resetSearch();
+    const url = `${BASE_API_URL_UNPLASH_PHOTOS}?query=${photo}&page=${page}&per_page=${PER_PAGE}&client_id=${process.env.REACT_APP_APIKEY}`;
     setUrl(url);
-  }, [photo, page]);
+  }, [photo]);
 
-  // merges states for infiniteScroll
+  // API Call on page number change
+  useEffect(() => {
+    if (page > 1 && !isLoading) {
+      const url = `${BASE_API_URL_UNPLASH_PHOTOS}?query=${photo}&page=${page}&per_page=${PER_PAGE}&client_id=${process.env.REACT_APP_APIKEY}`;
+      setUrl(url);
+    }
+  }, [page]);
+
   useEffect(() => {
     // prevents keeping old state on new search
     if (data !== null && data.results.length > 0 && page === 1) {
       setPhotos(data.results);
     }
+    // merge results for infiniteScroll
     if (page > 1 && data.results.length > 0) {
-      setPhotos((prev) => [...prev, ...data.results]);
+      setPhotos((prev) => {
+        const mergeAndRemoveDuplicates = [...prev, ...data.results].filter(
+          (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+        );
+        return mergeAndRemoveDuplicates;
+      });
     }
   }, [data]);
 
-  // reset states in case of Input submission
   useEffect(() => {
-    setPhotos([]);
-    setPage(1);
-    if (search) {
+    if (search && search !== photo) {
       history.push(`/search/${search}`);
     }
   }, [search]);

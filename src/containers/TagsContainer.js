@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 const CategoriesContainer = styled.div`
   margin-bottom: 35px;
@@ -82,11 +82,12 @@ const LinkButton = styled(Link)`
 `;
 
 export default function TagsContainer({ categories }) {
+  const { url } = useRouteMatch();
   const [blur, setBlur] = useState({ before: false, after: true });
 
   const handleScrool = (event) => {
     const { scrollLeft, clientWidth, scrollWidth } = event.currentTarget;
-    console.log(scrollLeft, clientWidth, scrollWidth);
+
     if (scrollLeft === 0) {
       setBlur((prev) => ({ ...prev, ...{ before: false } }));
     }
@@ -106,7 +107,13 @@ export default function TagsContainer({ categories }) {
         <CategoriesInnerWrapper>
           {categories &&
             categories.map((cat) => (
-              <LinkButton key={cat} onClick={(e) => console.log(e)}>
+              <LinkButton
+                key={cat}
+                to={{
+                  pathname: `/search/${cat}`,
+                  state: { resetSearch: true },
+                }}
+              >
                 {cat}
               </LinkButton>
             ))}
