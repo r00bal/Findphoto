@@ -45,7 +45,7 @@ function Home() {
               Powered by creators everywhere.
             </Header.Text>
           </Header>
-          <Autocomplete onSubmit={setSearch} />
+          <Autocomplete onSubmit={setSearch} bg="#FFFFFF" />
         </Container>
       </Wrapper>
     </>

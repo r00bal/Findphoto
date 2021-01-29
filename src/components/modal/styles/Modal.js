@@ -9,7 +9,7 @@ export const Container = styled.div`
   left: 0;
   height: 100vh;
   width: 100vw;
-  padding: 100px 150px;
+  padding: 50px 100px;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 `;

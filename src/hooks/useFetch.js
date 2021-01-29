@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 
-export default function useFetch(initURL = null, infinite = false) {
+export default function useFetch(initURL = null) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState(initURL);
   const [data, setData] = useState(null);
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setIsError(false);
@@ -20,6 +19,7 @@ export default function useFetch(initURL = null, infinite = false) {
         }
       } catch (error) {
         setIsError(true);
+        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
@@ -29,5 +29,5 @@ export default function useFetch(initURL = null, infinite = false) {
     }
   }, [url]);
 
-  return [{ isLoading, data, isError }, setUrl];
+  return [{ isLoading, data, isError, url }, setUrl];
 }
