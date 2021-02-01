@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import backgroundImage from '../assets/bg.jpg';
+import backgroundImageL from '../assets/largeBg.jpg';
+import backgroundImageS from '../assets/smllBg.jpg';
+import { useProgressiveImg } from '../hooks';
 import { Header, Autocomplete } from '../components';
 
 const Wrapper = styled.div`
   ${({ backgroundImage }) => (backgroundImage ? `background-image: url(${backgroundImage});` : null)}
+  ${({ blur }) => (blur ? `filter: blur(5px);` : null)}
   margin-top:100px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,6 +29,7 @@ const Container = styled.section`
 function Home() {
   const history = useHistory();
   const [search, setSearch] = useState(null);
+  const [src, { blur }] = useProgressiveImg(backgroundImageS, backgroundImageL);
   useEffect(() => {
     if (search) {
       history.push(`/search/${search}`);
@@ -33,7 +37,7 @@ function Home() {
   }, [search]);
   return (
     <>
-      <Wrapper backgroundImage={backgroundImage}>
+      <Wrapper backgroundImage={src} blur={blur}>
         <Container>
           <Header>
             <Header.Title> Unsplash</Header.Title>
@@ -43,7 +47,7 @@ function Home() {
               Powered by creators everywhere.
             </Header.Text>
           </Header>
-          <Autocomplete onSubmit={setSearch} bg="#FFFFFF" />
+          {!blur && <Autocomplete onSubmit={setSearch} bg="#FFFFFF" />}
         </Container>
       </Wrapper>
     </>

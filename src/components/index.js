@@ -3,3 +3,4 @@ export { default as Header } from './header';
 export { default as Modal } from './modal';
 export { default as Autocomplete } from './autocomplete';
 export { default as ImageList } from './imageList';
+export { default as BlurredUpImage } from './blurredUpImage';

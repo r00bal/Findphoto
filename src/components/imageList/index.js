@@ -1,16 +1,17 @@
 /* eslint-disable camelcase */
 
 import PropTypes from 'prop-types';
-import { ImageListWrapper, Img, ImageCardWrapper } from './styles/ImageList';
+import { BlurredUpImage } from '..';
+import { ImageListWrapper, ImageCardWrapper } from './styles/ImageList';
 
 export default function ImageList({ children, ...restProps }) {
   return <ImageListWrapper {...restProps}>{children}</ImageListWrapper>;
 }
 
-ImageList.Card = function ImageCard({ url, alt, ...restProps }) {
+ImageList.Card = function ImageCard({ urls, alt, ...restProps }) {
   return (
     <ImageCardWrapper {...restProps}>
-      <Img src={url} alt={alt} />
+      <BlurredUpImage tinyImg={urls.thumb} largeImg={urls.small} alt={alt} />
     </ImageCardWrapper>
   );
 };
@@ -25,6 +26,6 @@ ImageList.propTypes = {
 
 ImageList.Card.propTypes = {
   children: PropTypes.array,
-  url: PropTypes.string,
+  urls: PropTypes.array,
   alt: PropTypes.string,
 };
