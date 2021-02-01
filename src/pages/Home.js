@@ -7,17 +7,33 @@ import { useProgressiveImg } from '../hooks';
 import { Header, Autocomplete } from '../components';
 
 const Wrapper = styled.div`
-  ${({ backgroundImage }) => (backgroundImage ? `background-image: url(${backgroundImage});` : null)}
-  ${({ blur }) => (blur ? `filter: blur(5px);` : null)}
-  margin-top:100px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  margin-top: 100px;
+
   width: 100%;
   height: 100%;
   min-height: 600px;
   display: flex;
   justify-content: center;
+  &:before {
+    will-change: filter;
+    ${({ backgroundImage }) => (backgroundImage ? `background-image: url(${backgroundImage});` : null)}
+    ${({ blur }) => (blur ? `filter: blur(5px);` : null)}
+    transition: filter 0.5s ease-out;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
 `;
 
 const Container = styled.section`
