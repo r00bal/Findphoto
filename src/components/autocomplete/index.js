@@ -132,9 +132,10 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
   // const isOpen = suggestions.length > 0 && suggestions instanceof Array;
   return (
     <Form {...restProps} secondary={secondary} onSubmit={handleFormSubmit}>
-      <InputWrapper secondary={secondary}>
+      <InputWrapper {...restProps} secondary={secondary}>
         <Box />
         <Input
+          {...restProps}
           onKeyDown={handleKeyDown}
           onChange={handleInputChange}
           value={query}

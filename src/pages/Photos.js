@@ -116,7 +116,7 @@ export default function Photos() {
   return (
     <Container onScroll={handleScroll}>
       <AutocompleteWrapper>
-        <Autocomplete focusable={false} secondary bg="#d1d1d1" onSubmit={setSearch} />
+        <Autocomplete focusable={false} bg="#e0e0e0" secondary onSubmit={setSearch} />
       </AutocompleteWrapper>
 
       <Wrapper>

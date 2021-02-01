@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import styled from 'styled-components/macro';
 
 export const Form = styled.form`
@@ -17,7 +18,7 @@ export const Box = styled.div`
 
 export const InputWrapper = styled.div`
   border: 1px solid transparent;
-  background-color: ${({ bg }) => bg || `#e0e0e0`};
+  background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
   font-size: 16px;
   display: flex;
   padding-right: 30px;
@@ -26,7 +27,7 @@ export const InputWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
   &:focus-within {
-    background-color: ${({ bg }) => bg || `#e0e0e0`};
+    background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
     border: 1px solid #c0c0c0;
   }
   ${({ secondary }) =>
@@ -50,7 +51,7 @@ export const Input = styled.input`
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
   &:focus {
-    background-color: ${({ bg }) => bg || `#e0e0e0`};
+    background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
     outline: none;
     border: none;
   }
