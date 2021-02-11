@@ -107,10 +107,7 @@ export default function Photos() {
 
   const handleScroll = (event) => {
     const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
-    console.log(Math.round(scrollTop), Math.round(clientHeight), Math.round(scrollHeight));
-    console.log(isLoading);
-    console.log(data.total);
-    console.log(photos.length);
+
     // trigger next API call when container bottom is reached and prevent API calls when max of total results is reached
     if (
       Math.round(scrollHeight) - Math.round(scrollTop) === Math.round(clientHeight) &&
