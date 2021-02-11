@@ -83,13 +83,11 @@ export default function Photos() {
   useEffect(() => {
     // prevents keeping old state on new search
     if (data !== null && data.results.length > 0 && page === 1) {
-      console.log(data);
       setPhotos(data.results);
     }
     // merge results for infiniteScroll
     if (page > 1 && data.results.length > 0) {
       setPhotos((prev) => {
-        console.log(data);
         const mergeAndRemoveDuplicates = [...prev, ...data.results].filter(
           (v, i, a) => a.findIndex((t) => t.id === v.id) === i
         );

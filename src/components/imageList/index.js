@@ -26,6 +26,6 @@ ImageList.propTypes = {
 
 ImageList.Card.propTypes = {
   children: PropTypes.array,
-  urls: PropTypes.array,
+  urls: PropTypes.object,
   alt: PropTypes.string,
 };
