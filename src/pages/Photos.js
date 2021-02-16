@@ -10,6 +10,7 @@ import { ImageList, Autocomplete } from '../components';
 import { ArrangeEqualHeightColumns, GetCategories } from '../utils';
 import { BASE_API_URL_UNPLASH_PHOTOS, PER_PAGE } from '../constant';
 import { ModalContainer, TagsContainer } from '../containers';
+import logo from '../assets/512px-Logo_of_Unsplash.svg';
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -23,6 +24,11 @@ const Wrapper = styled.div`
   overflow: auto; */
 `;
 
+const Logo = styled.img`
+  width: 40px;
+  margin-right: 2rem;
+`;
+
 const Title = styled.h1`
   display: flex;
   font-size: 54px;
@@ -34,14 +40,17 @@ const Center = styled.p`
 `;
 
 const AutocompleteWrapper = styled.div`
-  border-bottom: 1px solid #d1d1d1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid var(--greyMedium2);
   height: 100px;
   width: 100%;
   padding: 1rem 2rem 3rem 2rem;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #ffffff;
+  background-color: var(--white);
   z-index: 3;
 `;
 
@@ -121,7 +130,10 @@ export default function Photos() {
   return (
     <Container onScroll={handleScroll}>
       <AutocompleteWrapper>
-        <Autocomplete focusable={false} bg="#e0e0e0" secondary onSubmit={setSearch} />
+        <Link to="/">
+          <Logo src={logo} alt="Unsplash" />
+        </Link>
+        <Autocomplete bg="var(--greyLight)" secondary onSubmit={setSearch} />
       </AutocompleteWrapper>
 
       <Wrapper>

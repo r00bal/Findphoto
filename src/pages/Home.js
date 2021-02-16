@@ -63,7 +63,7 @@ function Home() {
               Powered by creators everywhere.
             </Header.Text>
           </Header>
-          {!blur && <Autocomplete onSubmit={setSearch} bg="#FFFFFF" />}
+          {!blur && <Autocomplete onSubmit={setSearch} bg="var(--white)" />}
         </Container>
       </Wrapper>
     </>

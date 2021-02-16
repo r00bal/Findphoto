@@ -11,39 +11,53 @@ export const Form = styled.form`
   ${({ secondary }) => (secondary ? `max-width:1000px;` : null)}
 `;
 
-export const Box = styled.div`
-  width: 30px;
-  height: 100%;
+export const Button = styled.button`
+  width: 50px;
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  background: none;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+`;
+
+export const Img = styled.img`
+  width: 50px;
+  max-height: 60%;
+  color: var(--greyDark);
 `;
 
 export const InputWrapper = styled.div`
-  border: 1px solid transparent;
-  background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
+  ${({ secondary }) => (secondary ? `border: 1px solid transparent;` : null)};
+  background-color: ${({ bg }) => (bg ? bg : `var(--white)`)};
   font-size: 16px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding-right: 30px;
-  box-sizing: border-box;
   border-radius: 4px;
   width: 100%;
   flex-grow: 1;
   &:focus-within {
-    background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
-    border: 1px solid #c0c0c0;
+    background-color: ${({ bg }) => (bg ? bg : `var(--white)`)};
+    ${({ secondary }) => (secondary ? `border: 1px solid var(--greyDark);` : null)};
   }
   ${({ secondary }) =>
     secondary
       ? `border-radius: 24px;
 &:hover {
-  border: 1px solid #c0c0c0;
+  border: 1px solid var(--greyDark);
 }
 `
       : null};
 `;
 
 export const Input = styled.input`
-  border: none;
+  border: 1px solid transparent;
   height: ${({ secondary }) => (secondary ? `40px` : `53px`)};
-  padding: 0 0 0 10px;
+  padding: 0;
   width: 100%;
   background-color: transparent;
   font-size: 16px;
@@ -51,9 +65,9 @@ export const Input = styled.input`
   transition: all 0.1s ease-in-out;
   box-sizing: border-box;
   &:focus {
-    background-color: ${({ bg }) => (bg ? bg : `#ffffff`)};
+    background-color: ${({ bg }) => (bg ? bg : `var(--white)`)};
     outline: none;
-    border: none;
+    border: 1px solid transparent;
   }
 `;
 
@@ -64,7 +78,7 @@ export const List = styled.ul`
   top: 100%;
   padding: 5px 0px 5px 0px;
   border-radius: 4px;
-  background-color: #eeeeee;
+  background-color: var(--greyLight);
   display: flex;
   flex-direction: column;
   transition: all 0.1s ease-in-out;
@@ -73,12 +87,12 @@ export const List = styled.ul`
   flex-grow: 1;
   ${({ empty }) => (empty ? `display :none;` : null)}
   .active {
-    background-color: #e0e0e0;
+    background-color: var(--greyMedium);
   }
 `;
 export const Option = styled.li`
   padding: 10px 15px 10px;
   /* &:hover {
-    background-color: #e0e0e0;
+    background-color: var(--greyMedium);
   } */
 `;

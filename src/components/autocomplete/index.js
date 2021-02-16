@@ -5,10 +5,10 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useLocation } from 'react-router-dom';
-
+import MagnifyingGlassier from '../../assets/svg/magnifyingGlass';
 import { useFetch } from '../../hooks';
 import { BASE_API_URL_DATAMUSE } from '../../constant';
-import { Form, Input, List, Option, InputWrapper, Box } from './styles/Autocomplete';
+import { Form, Input, List, Option, InputWrapper, Button, Img } from './styles/Autocomplete';
 
 function Autocomplete({ placeholder = 'Search free high resolution photos', onSubmit, secondary, ...restProps }) {
   const location = useLocation();
@@ -133,7 +133,15 @@ function Autocomplete({ placeholder = 'Search free high resolution photos', onSu
   return (
     <Form {...restProps} secondary={secondary} onSubmit={handleFormSubmit}>
       <InputWrapper {...restProps} secondary={secondary}>
-        <Box />
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            handleFormSubmit();
+          }}
+        >
+          <MagnifyingGlassier color="#767676" />
+        </Button>
         <Input
           {...restProps}
           onKeyDown={handleKeyDown}

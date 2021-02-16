@@ -8,6 +8,15 @@ import reportWebVitals from './reportWebVitals';
 
 const GlobalStyle = createGlobalStyle`
 
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --greyLight: #eeeeee;
+  --greyMedium: #e0e0e0;
+  --greyMedium2: #d1d1d1;
+  --greyDark: #767676;
+}
+
 html {
   box-sizing: border-box;
 }
