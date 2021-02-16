@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ArrowForward from '../assets/svg/arrow-forward';
+import ArrowBack from '../assets/svg/arrow-back';
 
 const CategoriesContainer = styled.div`
   margin-bottom: 35px;
   width: 100%;
-  height: 50px;
+  height: 45px;
   max-width: 1300px;
   position: relative;
+  .arrowBack {
+    left: 0;
+    opacity: ${({ blur }) => (blur.before ? 1 : 0)};
+  }
+  .arrowForward {
+    right: 0;
+    opacity: ${({ blur }) => (blur.after ? 1 : 0)};
+  }
   &:before,
   &:after {
     opacity: 0;
@@ -39,18 +49,39 @@ const CategoriesContainer = styled.div`
 const CategoriesInnerWrapper = styled.div`
   position: absolute;
   display: inline-flex;
-
+  justify-content: center;
+  align-items: center;
   overflow-x: hidden;
   top: 0;
   left: 0;
   width: fit-content;
 `;
 
+const Button = styled.button`
+  border: 0;
+  outline: 0;
+  background: none;
+  height: 100%;
+  width: 23px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 2;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+  :focus-visible {
+    outline: 1px solid blue;
+  }
+`;
+
 const CategoriesOuterWrapper = styled.div`
   position: relative;
   height: 100%;
   min-width: 100%;
-  overflow-y: scroll;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar {
     width: 0 !important;
     height: 0 !important;
@@ -82,6 +113,7 @@ const LinkButton = styled(Link)`
 `;
 
 export default function TagsContainer({ categories }) {
+  const categoriesRef = useRef(null);
   const [blur, setBlur] = useState({ before: false, after: true });
 
   const handleScrool = (event) => {
@@ -100,9 +132,24 @@ export default function TagsContainer({ categories }) {
       setBlur((prev) => ({ ...prev, ...{ after: true } }));
     }
   };
+
+  const handleArrowClick = (e) => {
+    e.preventDefault();
+    const x = 100;
+    const dir = e.currentTarget.dataset.name;
+    if (dir === 'forward') {
+      categoriesRef.current.scrollLeft += x;
+    }
+    if (dir === 'back') {
+      categoriesRef.current.scrollLeft -= x;
+    }
+  };
   return (
     <CategoriesContainer blur={blur}>
-      <CategoriesOuterWrapper onScroll={handleScrool}>
+      <Button blur={blur} className="arrowBack" onClick={handleArrowClick} data-name="back">
+        <ArrowBack />
+      </Button>
+      <CategoriesOuterWrapper onScroll={handleScrool} ref={categoriesRef}>
         <CategoriesInnerWrapper>
           {categories &&
             categories.map((cat) => (
@@ -118,6 +165,9 @@ export default function TagsContainer({ categories }) {
             ))}
         </CategoriesInnerWrapper>
       </CategoriesOuterWrapper>
+      <Button className="arrowForward" onClick={handleArrowClick} data-name="forward">
+        <ArrowForward />
+      </Button>
     </CategoriesContainer>
   );
 }

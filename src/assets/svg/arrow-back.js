@@ -1,0 +1,14 @@
+export default function ArrowBack() {
+  return (
+    <>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="90%" viewBox="0 0 80 139.933">
+        <path
+          id="Icon_ionic-ios-arrow-back"
+          data-name="back"
+          d="M35.367,76.142,88.314,23.237A10,10,0,0,0,74.15,9.115L14.163,69.06a9.981,9.981,0,0,0-.292,13.789l60.237,60.362a10,10,0,1,0,14.164-14.122Z"
+          transform="translate(-11.251 -6.194)"
+        />
+      </svg>
+    </>
+  );
+}
