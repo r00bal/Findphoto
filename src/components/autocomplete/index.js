@@ -8,7 +8,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import MagnifyingGlassier from '../../assets/svg/magnifyingGlass';
 import { useFetch } from '../../hooks';
 import { BASE_API_URL_DATAMUSE } from '../../constant';
-import { Form, Input, List, Option, InputWrapper, Button, Img } from './styles/Autocomplete';
+import { Form, Input, List, Option, InputWrapper, Button } from './styles/Autocomplete';
 
 function Autocomplete({ placeholder = 'Search free high resolution photos', onSubmit, secondary, ...restProps }) {
   const location = useLocation();
