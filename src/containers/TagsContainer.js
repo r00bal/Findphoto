@@ -118,6 +118,10 @@ export default function TagsContainer({ categories }) {
 
   const handleScrool = (event) => {
     const { scrollLeft, clientWidth, scrollWidth } = event.currentTarget;
+    console.log('scrollWidth', scrollWidth);
+    console.log('clientWidth', clientWidth);
+    console.log('scrollLeft', scrollLeft);
+    console.log('scrollWidth - clientWidth', scrollWidth - clientWidth - 30);
 
     if (scrollLeft === 0) {
       setBlur((prev) => ({ ...prev, ...{ before: false } }));
@@ -125,10 +129,10 @@ export default function TagsContainer({ categories }) {
     if (scrollLeft > 0) {
       setBlur((prev) => ({ ...prev, ...{ before: true } }));
     }
-    if (scrollWidth - clientWidth === scrollLeft) {
+    if (scrollWidth - clientWidth - 20 < scrollLeft) {
       setBlur((prev) => ({ ...prev, ...{ after: false } }));
     }
-    if (clientWidth < scrollWidth && scrollWidth - clientWidth !== scrollLeft) {
+    if (scrollWidth - clientWidth - 20 > scrollLeft) {
       setBlur((prev) => ({ ...prev, ...{ after: true } }));
     }
   };
